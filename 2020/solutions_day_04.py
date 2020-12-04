@@ -25,4 +25,4 @@ answer2=len(valid_pps_2)
 
 print("answer 1:",answer1,"answer 2:",answer2)
 
-#Answer 2 was of by one, don't know why
+#Answer 2 was off by one, don't know why

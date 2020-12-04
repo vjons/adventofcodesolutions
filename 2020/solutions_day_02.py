@@ -2,7 +2,6 @@ import aoc_lib as al
 import numpy as np
 
 raw = al.get_aoc_input(al.session_cookie,day=2).strip("\n")
-
 data=[part.split(" ") for part in raw.split("\n")]
 
 def validator1(entry):
