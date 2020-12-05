@@ -12,7 +12,7 @@ def validate1(pp):
     return all(k in pp for k in fields)
 
 def validate2(pp):
-    patterns="^19[2-9]\\d|200[0-2]$","^20(1\\d|20)$","^20(2\\d|30)$",\
+    patterns="^(19[2-9]\\d|200[0-2])$","^20(1\\d|20)$","^(20(2\\d|30))$",\
              "^((1[5-8]\\d|19[0-3])cm|(59|6\\d|7[0-6])in)$",\
              "^#(\\d|[a-f]){6}$","^(amb|blu|brn|gry|grn|hzl|oth)$","^\\d{9}$"
     return all(re.match(pattern,pp[key]) for pattern,key in zip(patterns,fields))
