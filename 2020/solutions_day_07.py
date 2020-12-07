@@ -11,26 +11,26 @@ def parse(row):
         if n=="no":
             break
         v=v[:-4].strip()
-        bags.append([int(n),v])
-    return key,bags
-
+        bags.append((int(n),v))
+    return key,tuple(bags)
 
 data=dict(map(parse,raw))
+val=set(["shiny gold"])
+inval=set()
+checked_keys=set()
 
-def validate(k,keys=[]):
-    new_keys=keys+[k]
-    if keys and k=="shiny gold":
-        return True
-    elif len(new_keys)>1 and new_keys[0]==new_keys[-1]:
-        return False
-    else:
-        return any(validate(v,new_keys) for n,v in data[k])
+def check(k):
+    valid=k not in inval and (k in val or any(check(v) for _,v in data[k]))
+    [inval,val][valid].add(k)
+    return valid
 
+ks=iter(data)
+while len(inval)+len(val)<len(data):
+    check(next(ks))
 
-def count_bags(k):
-    return sum(ni+ni*count_bags(ki) for ni,ki in data[k])
+count_bags = lambda k: sum(ni+ni*count_bags(ki) for ni,ki in data[k])
 
-answer1=len(list(filter(validate,data.keys())))
+answer1=len(val)-1
 answer2=count_bags("shiny gold")
 
 print("answer 1:",answer1,"answer 2:",answer2)
