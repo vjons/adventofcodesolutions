@@ -1,8 +1,11 @@
 import datetime as dt
 from requests import Session
 import os
+from time import time
 
-def get_aoc_input(session,day=None,year=None):
+SESSION_COOKIE="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+def get_aoc_input(day=None,year=None):
     now=dt.datetime.now(dt.timezone.utc)
     day=now.day if day is None else day
     year=now.year if year is None else year
@@ -19,14 +22,24 @@ def get_aoc_input(session,day=None,year=None):
     if now<release_time:
         msg=f"The puzzle is not released before {release_time.strftime('%Y-%m-%d %H:%M')} UTC+00:00"
         raise Exception(msg)
-    text=Session().get(url,cookies=dict(session=session)).text
+    text=Session().get(url,cookies=dict(session=SESSION_COOKIE)).text
     if not os.path.exists(folder):
         os.mkdir(folder)
     with open(filename,'w') as file:
         file.write(text)
     return text
 
-    
+def present_answers(day,f,rep=0):
+    raw = get_aoc_input(day=day).strip("\n")
+    a1,a2=f(raw)
+    print("Answer 1:",a1)
+    print("Answer 2:",a2)
+    if rep:
+        t0=time()
+        for _ in range(rep):
+            f(raw)
+        duration=time()-t0
+        print(f"Running time: {1000*duration/rep:.2f} ms")
 
 
 

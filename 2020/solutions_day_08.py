@@ -1,41 +1,29 @@
 import aoc_lib as al
 
-raw=al.get_aoc_input(al.session_cookie,day=8).strip("\n")
+process=lambda cmd,arg,p,v:{"jmp":(p+arg,v),"acc":(p+1,v+arg),"nop":(p+1,v)}[cmd]
 
-data=[cmd.split(" ") for cmd in raw.split("\n")]
-
-def execute(code):
-    global_value=0
+def run(code):
     positions=set([0])
     pos=0
+    value=0
     while pos<len(code):
-        op,value=code[pos]
-        if op=="jmp":
-            pos+=int(value)
-        elif op=="acc":
-            global_value+=int(value)
-            pos+=1
-        else:
-            pos+=1
+        pos,value=process(*code[pos],pos,value)
         if pos in positions:
-            break
-        else:
-            positions.add(pos)
-    return pos,global_value
+            return 0,value
+        positions.add(pos)
+    return 1,value
 
-def fix_code():
-    for i,(d,v) in enumerate(data):
-        changed_code=[d[:] for d in data]
-        if d in ("nop","jmp"):
-            changed_code[i][0]="jmp" if d=="nop" else "nop"
-        else:
+def answers(raw):
+    program=[[cmd[:3],int(cmd[4:])] for cmd in raw.split("\n")]
+    for i,d in enumerate(program):
+        d_mem=d[0]
+        if d=="acc":
             continue
-        pos,value=execute(changed_code)
-        if pos == len(data):
-            return value
+        d[0]=("nop","jmp")[d=="nop"]
+        terminated_correctly,value=run(program)
+        d[0]=d_mem
+        if terminated_correctly:
+            break
+    return run(program)[1],value
 
-
-answer1=execute(data)[1]
-answer2=fix_code()
-
-print("answer 1:",answer1,"answer 2:",answer2)
+al.present_answers(8,answers)

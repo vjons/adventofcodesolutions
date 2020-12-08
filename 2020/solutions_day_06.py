@@ -1,10 +1,7 @@
 import aoc_lib as al
 
-raw=al.get_aoc_input(al.session_cookie,day=6).strip("\n")
+def answers(raw):
+        data=[[set(l) for l in group.split("\n")] for group in raw.split("\n\n")]
+        return [sum([len(f(*sets)) for sets in data]) for f in (set.union,set.intersection)]
 
-data=[[set(l) for l in group.split("\n")] for group in raw.split("\n\n")]
-
-answer1=sum([len(set.union(*sets)) for sets in data])
-answer2=sum([len(set.intersection(*sets)) for sets in data])
-
-print("answer 1:",answer1,"answer 2:",answer2)
+al.present_answers(6,answers)
