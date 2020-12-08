@@ -32,19 +32,11 @@ def get_aoc_input(day=None,year=None):
 def present_answers(day,f,rep=0):
     raw = get_aoc_input(day=day).strip("\n")
     a1,a2=f(raw)
-    print("Answer 1:",a1)
-    print("Answer 2:",a2)
+    for i,a in enumerate(f(raw)):
+        print(f"Answer {i+1}: {a}")
     if rep:
         t0=time()
         for _ in range(rep):
             f(raw)
         duration=time()-t0
         print(f"Running time: {1000*duration/rep:.2f} ms")
-
-
-
-
-
-
-
-
