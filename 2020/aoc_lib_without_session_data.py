@@ -26,6 +26,8 @@ def get_aoc_input(session,day=None,year=None):
         file.write(text)
     return text
 
+    
+
 
 
 

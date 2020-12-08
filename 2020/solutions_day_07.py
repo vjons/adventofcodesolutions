@@ -20,13 +20,13 @@ inval=set()
 checked_keys=set()
 
 def check(k):
-    valid=k not in inval and (k in val or any(check(v) for _,v in data[k]))
+    valid=k not in inval and k in val or any(check(v) for _,v in data[k])
     [inval,val][valid].add(k)
     return valid
 
-ks=iter(data)
+key=iter(data)
 while len(inval)+len(val)<len(data):
-    check(next(ks))
+    check(next(key))
 
 count_bags = lambda k: sum(ni+ni*count_bags(ki) for ni,ki in data[k])
 
