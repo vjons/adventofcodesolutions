@@ -16,7 +16,6 @@ def answers(raw):
     data=dict(map(parse,raw.split("\n")))
     val=set(["shiny gold"])
     inval=set()
-    checked_keys=set()
 
     def check(k):
         valid=k not in inval and k in val or any(check(v) for _,v in data[k])

@@ -31,7 +31,6 @@ def get_aoc_input(day=None,year=None):
 
 def present_answers(day,f,rep=0):
     raw = get_aoc_input(day=day).strip("\n")
-    a1,a2=f(raw)
     for i,a in enumerate(f(raw)):
         print(f"Answer {i+1}: {a}")
     if rep:
