@@ -9,9 +9,9 @@ def run(code):
     while pos<len(code):
         pos,value=process(*code[pos],pos,value)
         if pos in positions:
-            return 0,value
+            return False,value
         positions.add(pos)
-    return 1,value
+    return True,value
 
 def answers(raw):
     program=[[cmd[:3],int(cmd[4:])] for cmd in raw.split("\n")]
@@ -20,9 +20,9 @@ def answers(raw):
         if d=="acc":
             continue
         d[0]=("nop","jmp")[d=="nop"]
-        terminated_correctly,value=run(program)
+        terminated,value=run(program)
         d[0]=d_mem
-        if terminated_correctly:
+        if terminated:
             break
     return run(program)[1],value
 
