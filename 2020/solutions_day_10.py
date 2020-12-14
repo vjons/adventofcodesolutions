@@ -2,10 +2,7 @@ import aoc_lib as al
 import numpy as np
 import itertools as itr
 
-def nways(n,k):
-    if n<2:
-        return 1
-    return 2**(n-1-k)*(2**k-n+k)
+nways = lambda n,k: 1 if n<2 else 2**(n-1-k)*(2**k-n+k)
 
 def answers(raw):
     data=np.sort(np.array(raw.split("\n"),dtype=np.uint64))
