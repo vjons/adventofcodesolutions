@@ -11,4 +11,5 @@ def answers(raw):
 
     return path[1],np.prod(path)
 
-al.present_answers(3,answers)
+if __name__=="__main__":
+    al.present_answers(3,answers)

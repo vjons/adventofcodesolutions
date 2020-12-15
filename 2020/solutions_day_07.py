@@ -14,6 +14,8 @@ def parse(row):
 
 def answers(raw):
     data=dict(map(parse,raw.split("\n")))
+
+    #Part 1
     val=set(["shiny gold"])
     inval=set()
 
@@ -22,12 +24,17 @@ def answers(raw):
         [inval,val][valid].add(k)
         return valid
 
+
     key=iter(data)
     while len(inval)+len(val)<len(data):
         check(next(key))
 
+    yield len(val)-1
+
+    #Part 2
     count_bags = lambda k: sum(ni+ni*count_bags(ki) for ni,ki in data[k])
 
-    return len(val)-1,count_bags("shiny gold")
+    yield count_bags("shiny gold")
 
-al.present_answers(7,answers)
+if __name__=="__main__":
+    al.present_answers(7,answers)

@@ -1,9 +1,41 @@
 import aoc_lib as al
 import numpy as np
-import itertools as itr
+
+def to_array(value,length):
+    return np.array(list(f"{value:0>{length}b}"))
+
+
+def to_int(value):
+    return int("".join(value),2)
+
 
 def answers(raw):
-    data=0
-    yield 0
+    mem1={}
+    mem2={}
+    for row in raw.split("\n"):
+        if row.startswith("mask"):
+            mask=np.array(list(row[7:]))
+            at_X=mask=="X"
+            at_1=mask=="1"
+            L=np.sum(at_X)
+            continue
+        adress,value=map(int,row[4:].split("] = "))
 
-al.present_answers(14,answers)
+        #Part 1
+        bin_value=to_array(value,36)
+        bin_value[~at_X]=mask[~at_X]
+        mem1[adress]=to_int(bin_value)
+
+        #Part 2
+        bin_adress=to_array(adress,36)
+        bin_adress[at_1]="1"
+        for x in range(2**L):
+            bin_adress[at_X]=to_array(x,L)
+            mem2[to_int(bin_adress)]=value
+
+    yield sum(mem1.values())
+    yield sum(mem2.values())
+
+
+if __name__=="__main__":
+    al.present_answers(14,answers)

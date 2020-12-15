@@ -23,5 +23,6 @@ def answers(raw):
     return answer1,answer2
 
 
-al.present_answers(1,answers,100)
+if __name__=="__main__":
+    al.present_answers(1,answers,100)
 

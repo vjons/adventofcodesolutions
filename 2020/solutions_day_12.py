@@ -1,10 +1,7 @@
 import aoc_lib as al
-import numpy as np
-import itertools as itr
-from scipy.ndimage import convolve
-import time
 
 cmds=dict(N=(1j,1),S=(-1j,1),E=(1,1),W=(-1,1),L=(0,1j),R=(0,-1j))
+
 
 def answers(raw):
     instructions=[(r[0],int(r[1:])) for r in raw.split("\n")]
@@ -22,4 +19,6 @@ def answers(raw):
                 z+=c*val
         yield int(abs(z.real)+abs(z.imag))
 
-al.present_answers(12,answers)
+
+if __name__=="__main__":
+    al.present_answers(12,answers)

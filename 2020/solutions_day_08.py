@@ -15,15 +15,19 @@ def run(code):
 
 def answers(raw):
     program=[[cmd[:3],int(cmd[4:])] for cmd in raw.split("\n")]
+
+    yield run(program)[1]
+
     for i,d in enumerate(program):
         d_mem=d[0]
-        if d=="acc":
+        if d[0]=="acc":
             continue
         d[0]=("nop","jmp")[d=="nop"]
         terminated,value=run(program)
         d[0]=d_mem
         if terminated:
+            yield value
             break
-    return run(program)[1],value
 
-al.present_answers(8,answers)
+if __name__=="__main__":
+    al.present_answers(8,answers)

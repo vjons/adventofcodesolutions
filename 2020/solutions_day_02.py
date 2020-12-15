@@ -13,6 +13,7 @@ def validator2(entry):
 
 def answers(raw):
     data=[part.split(" ") for part in raw.split("\n")]
-    return [len(list(filter(v,data))) for v in (validator1,validator2)]
+    yield from (len(list(filter(v,data))) for v in (validator1,validator2))
 
-al.present_answers(2,answers,100)
+if __name__=="__main__":
+    al.present_answers(2,answers)

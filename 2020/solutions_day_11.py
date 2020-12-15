@@ -1,24 +1,22 @@
 import aoc_lib as al
 import numpy as np
-import itertools as itr
-from scipy.ndimage import convolve,convolve1d
+from scipy.ndimage import convolve
 
 def update1(st,fl):
-    nb=convolve(st,np.ones((3,3)),int,mode="constant",cval=0)
-    return (st&(nb<5)) | (nb==0) & ~fl,st.copy()
+    nbs=convolve(st,np.ones((3,3)),int,mode="constant",cval=0)
+    return (st&(nbs<5)) | (nbs==0) & ~fl,st.copy()
+
 
 def update2(st,fl,inds):
-    global ps,nbs
     ps=np.pad(st,pad_width=1, mode='constant', constant_values=0)
     nbs=np.zeros(ps.shape)
     for i1,i2 in zip(inds[::2],inds[1::2]):
-        nbs[i1,i2]+=convolve1d(ps[i1,i2],(1,0,1))
+        nbs[i1,i2]+=convolve(ps[i1,i2],(1,0,1))
     nbs=nbs[1:-1,1:-1]
     return (st&(nbs<5)) | (nbs==0) & ~fl,st.copy()
 
 
 def padded_dir_inds(floor):
-    global all_inds
     padded_floor=np.pad(floor,pad_width=1, mode='constant', constant_values=False)
     nr,nc=padded_floor.shape
     inds=np.indices((nr,nc))
@@ -49,4 +47,6 @@ def answers(raw):
                 yield np.sum(seats)
                 break
 
-al.present_answers(11,answers)
+
+if __name__=="__main__":
+    al.present_answers(11,answers)

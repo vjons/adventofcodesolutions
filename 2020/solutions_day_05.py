@@ -14,4 +14,5 @@ def answers(raw):
 
     return np.max(IDS),your_ID
 
-al.present_answers(5,answers)
+if __name__=="__main__":
+    al.present_answers(5,answers)
