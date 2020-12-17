@@ -16,8 +16,11 @@ def run(code):
 def answers(raw):
     program=[[cmd[:3],int(cmd[4:])] for cmd in raw.split("\n")]
 
+    #Part 1
     yield run(program)[1]
 
+
+    #Part 2
     for i,d in enumerate(program):
         d_mem=d[0]
         if d[0]=="acc":
