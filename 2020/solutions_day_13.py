@@ -2,6 +2,7 @@ import aoc_lib as al
 import numpy as np
 import itertools as itr
 
+
 def answers(raw):
     timestamp,data=raw.split("\n")
     data=[(r,int(d)) for r,d in enumerate(data.split(",")) if d!="x"]

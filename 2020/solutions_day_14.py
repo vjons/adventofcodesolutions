@@ -1,6 +1,7 @@
 import aoc_lib as al
 import numpy as np
 
+
 def to_array(value,length):
     return np.array(list(f"{value:0>{length}b}"))
 
@@ -33,8 +34,7 @@ def answers(raw):
             bin_adress[at_X]=to_array(x,L)
             mem2[to_int(bin_adress)]=value
 
-    yield sum(mem1.values())
-    yield sum(mem2.values())
+    yield from (sum(m.values()) for m in (mem1,mem2))
 
 
 if __name__=="__main__":

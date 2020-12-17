@@ -1,6 +1,8 @@
 import aoc_lib as al
 
+
 process=lambda cmd,arg,p,v:{"jmp":(p+arg,v),"acc":(p+1,v+arg),"nop":(p+1,v)}[cmd]
+
 
 def run(code):
     positions=set([0])
@@ -13,12 +15,12 @@ def run(code):
         positions.add(pos)
     return True,value
 
+
 def answers(raw):
     program=[[cmd[:3],int(cmd[4:])] for cmd in raw.split("\n")]
 
     #Part 1
     yield run(program)[1]
-
 
     #Part 2
     for i,d in enumerate(program):
@@ -31,6 +33,7 @@ def answers(raw):
         if terminated:
             yield value
             break
+
 
 if __name__=="__main__":
     al.present_answers(8,answers)

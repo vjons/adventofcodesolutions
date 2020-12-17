@@ -1,5 +1,6 @@
 import aoc_lib as al
 
+
 cmds=dict(N=(1j,1),S=(-1j,1),E=(1,1),W=(-1,1),L=(0,1j),R=(0,-1j))
 
 

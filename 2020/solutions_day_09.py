@@ -2,6 +2,7 @@ import aoc_lib as al
 import numpy as np
 import itertools as itr
 
+
 def answers(raw):
     data=np.array(raw.split("\n")).astype("int64")
     
@@ -20,6 +21,7 @@ def answers(raw):
             if test_sum==ref_sum:
                 yield np.min(data[i:i+n])+np.max(data[i:i+n])
                 break
+
 
 if __name__=="__main__":
     al.present_answers(9,answers)

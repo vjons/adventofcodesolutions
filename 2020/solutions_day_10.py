@@ -1,6 +1,7 @@
 import aoc_lib as al
 import numpy as np
 
+
 def nways(n,k):
     return 1 if n<2 else 2**(n-1-k)*(2**k-n+k)
 

@@ -1,6 +1,7 @@
 import aoc_lib as al
 import numpy as np
 
+
 def answers(raw):
     data=raw.replace(".","0 ").replace("#","1 ")
 
