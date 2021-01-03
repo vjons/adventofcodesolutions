@@ -1,10 +1,8 @@
 import aoc_lib as al
 import numpy as np
-import itertools as itr
 import re
 
 def answers(raw):
-    global messages,rules1,rules2
     rules1,messages=raw.split("\n\n")
     rules1=dict([row.replace('"','').split(": ") for row in rules1.split("\n")])
     messages=messages.split("\n")
@@ -19,13 +17,14 @@ def answers(raw):
         res=0
         while True:
             for k,v in rs.items():
-                repls=[f"( {rs[m[0]]} )" if "|" in rs[m[0]] else rs[m[0]] for m in p.finditer(v)]
-                if repls:
-                    while p.search(rs[k]) is not None:
-                        rs[k]=p.sub("{}",rs[k])
-                    rs[k]=rs[k].format(*repls)
-
-            res,old_res=len([msg for msg in messages if re.match("^"+rs["0"].replace(" ","")+"$",msg)]),res
+                repls=[f"({rs[m[0]]})" if "|" in rs[m[0]] else rs[m[0]]
+                       for m in p.finditer(v)]
+                if not repls: continue
+                while p.search(rs[k]) is not None:
+                    rs[k]=p.sub("{}",rs[k])
+                rs[k]=rs[k].format(*repls)
+            pattern="^"+rs["0"].replace(" ","")+"$"
+            res,old_res=sum(1 for m in messages if re.match(pattern,m)),res
             if res>0 and res==old_res:
                 break
         yield res

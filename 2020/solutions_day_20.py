@@ -34,15 +34,18 @@ def populate(ps,links,info):
 
 def answers(raw):
     ids,pixels,edges=map(np.array,zip(*map(parse,raw.split("\n\n"))))
-    L=len(edges)
+
     ms=np.argwhere(edges[:,:,None,None]==edges)
     ms=ms[ms[:,0]!=ms[:,2]]
     links=np.full((L,8,2),-1)
     links[tuple(ms[:,:2].T)]=ms[:,2:]
+
+    L=len(edges)
     ps=np.full((2*L,2),-1)
     ps[L]=0,0
     populate(ps,links,(L,0,0))
     ps=ps[ps[:,0]!=-1]
+
     yield np.prod(ids[ps[[0,11,-12,-1],1]],dtype=np.int64)
 
     tr_pixels=[T[tr](pixels[i_src])[1:-1,1:-1] for tr,i_src in ps]
@@ -53,6 +56,7 @@ def answers(raw):
     kernel=(np.array([list(row) for row in kernel])=="#").astype(int)
     N=kernel.sum()
     matches=[convolve(full_image,tr(kernel),mode="constant")==N for tr in T]
+    
     yield np.sum(full_image)-np.sum(matches)*N
 
 
