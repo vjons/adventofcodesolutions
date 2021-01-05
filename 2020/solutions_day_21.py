@@ -8,8 +8,8 @@ def parse(r):
 def answers(raw):
     fa=list(zip(*(parse(r) for r in raw.split("\n"))))
     all_ings,all_alls=(set.union(*x) for x in fa)
-    uniques={key:set.intersection(*(f for f,a in zip(*fa) if key in a))\
-             for key in all_alls}
+    uniques={al:set.intersection(*(f for f,als in zip(*fa) if al in als))\
+             for al in all_alls}
 
     free_ai=[]
     while uniques:
