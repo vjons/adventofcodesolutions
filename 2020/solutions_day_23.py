@@ -23,17 +23,16 @@ def play(init,move_count):
         current=move(after,current)
     return after
 
-def labels(after,start,count):
+def labels(after,count,start=0):
     if count:
         yield after[start]+1
-        yield from labels(after,after[start],count-1)
+        yield from labels(after,count-1,after[start])
 
 def answers(raw):
-    init=np.array([int(r)-1 for r in raw])
-    after=play(init,100)
-    yield "".join(map(str,labels(after,0,8)))
-    after=play(np.r_[init,np.mgrid[len(init):10**6]],10**7)
-    yield np.prod(list(labels(after,0,2)),dtype=np.int64)
+    init1=np.array([int(r)-1 for r in raw])
+    yield "".join(map(str,labels(play(init1,100),len(init1)-1)))
+    init2=np.r_[init1,np.mgrid[len(init1):10**6]]
+    yield np.prod(list(labels(play(init2,10**7),2)),dtype=np.int64)
 
 if __name__=="__main__":
     al.present_answers(2020,23,answers)
