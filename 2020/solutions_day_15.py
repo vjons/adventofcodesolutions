@@ -1,7 +1,6 @@
 import aoc_lib as al
 import numpy as np
 
-
 def answers(raw):
     init=[int(n) for n in raw.split(",")]
     L=len(init)
@@ -14,6 +13,5 @@ def answers(raw):
             ln = i - n if n else 0
         yield ln
 
-
 if __name__=="__main__":
-    al.present_answers(15,answers)
+    al.present_answers(2020,15,answers)

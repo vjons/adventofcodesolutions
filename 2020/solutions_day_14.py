@@ -1,14 +1,11 @@
 import aoc_lib as al
 import numpy as np
 
-
 def to_array(value,length):
     return np.array(list(f"{value:0>{length}b}"))
 
-
 def to_int(value):
     return int("".join(value),2)
-
 
 def answers(raw):
     mem1={}
@@ -22,12 +19,10 @@ def answers(raw):
             continue
         adress,value=map(int,row[4:].split("] = "))
 
-        #Part 1
         bin_value=to_array(value,36)
         bin_value[~at_X]=mask[~at_X]
         mem1[adress]=to_int(bin_value)
 
-        #Part 2
         bin_adress=to_array(adress,36)
         bin_adress[at_1]="1"
         for x in range(2**L):
@@ -36,6 +31,5 @@ def answers(raw):
 
     yield from (sum(m.values()) for m in (mem1,mem2))
 
-
 if __name__=="__main__":
-    al.present_answers(14,answers)
+    al.present_answers(2020,14,answers)

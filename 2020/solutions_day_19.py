@@ -29,6 +29,5 @@ def answers(raw):
                 break
         yield res
 
-
 if __name__=="__main__":
     al.present_answers(2020,19,answers)

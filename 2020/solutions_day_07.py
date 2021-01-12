@@ -1,6 +1,5 @@
 import aoc_lib as al
 
-
 def parse(row):
     key,info=row.split(" bags contain ")
     values=info.strip(".").split(",")
@@ -13,11 +12,9 @@ def parse(row):
         bags.append((int(n),v))
     return key,tuple(bags)
 
-
 def answers(raw):
     data=dict(map(parse,raw.split("\n")))
 
-    #Part 1
     val=set(["shiny gold"])
     inval=set()
 
@@ -31,10 +28,8 @@ def answers(raw):
         check(next(key))
     yield len(val)-1
 
-    #Part 2
     count_bags = lambda k: sum(ni+ni*count_bags(ki) for ni,ki in data[k])
     yield count_bags("shiny gold")
 
-
 if __name__=="__main__":
-    al.present_answers(7,answers)
+    al.present_answers(2020,7,answers)

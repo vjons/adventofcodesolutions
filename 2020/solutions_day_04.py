@@ -8,14 +8,12 @@ def answers(raw):
 
     fields="byr","iyr","eyr","hgt","hcl","ecl","pid"
 
-    #Part 1
     def validate1(pp):
         return all(k in pp for k in fields)
 
     valid_pps_1=list(filter(validate1,data))
     yield len(valid_pps_1)
 
-    #Part 2
     def validate2(pp):
         regs="^(19[2-9]\\d|200[0-2])$","^20(1\\d|20)$","^(20(2\\d|30))$",\
              "^((1[5-8]\\d|19[0-3])cm|(59|6\\d|7[0-6])in)$",\
@@ -25,4 +23,4 @@ def answers(raw):
     yield len(list(filter(validate2,valid_pps_1)))
 
 if __name__=="__main__":
-    al.present_answers(4,answers)
+    al.present_answers(2020,4,answers)

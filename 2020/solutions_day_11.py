@@ -6,7 +6,6 @@ def update1(st,fl):
     nbs=convolve(st,np.ones((3,3)),int,mode="constant",cval=0)
     return (st&(nbs<5)) | (nbs==0) & ~fl,st.copy()
 
-
 def update2(st,fl,inds):
     ps=np.pad(st,pad_width=1, mode='constant', constant_values=0)
     nbs=np.zeros(ps.shape)
@@ -14,7 +13,6 @@ def update2(st,fl,inds):
         nbs[i1,i2]+=convolve(ps[i1,i2],(1,0,1))
     nbs=nbs[1:-1,1:-1]
     return (st&(nbs<5)) | (nbs==0) & ~fl,st.copy()
-
 
 def padded_dir_inds(floor):
     padded_floor=np.pad(floor,pad_width=1, mode='constant', constant_values=False)
@@ -26,7 +24,6 @@ def padded_dir_inds(floor):
     all_inds.extend([inds[0],inds[1],inds[0].T,inds[1].T])
     return [d[d>-1] for d in all_inds]
 
-
 def display(st,fl=None):
     out=st.astype(str)
     out[out=="-1" if fl is None else fl]="."
@@ -34,7 +31,6 @@ def display(st,fl=None):
     out[out=="0"]="L"
     print("\n".join(["".join(o) for o in out]))
     print("")
-
 
 def answers(raw):
     floor=np.array([list(r) for r in raw.split("\n")])=="."
@@ -47,6 +43,5 @@ def answers(raw):
                 yield np.sum(seats)
                 break
 
-
 if __name__=="__main__":
-    al.present_answers(11,answers)
+    al.present_answers(2020,11,answers)
