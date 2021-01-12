@@ -29,13 +29,12 @@ def get_aoc_input(day=None,year=None):
         file.write(text)
     return text
 
-def present_answers(day,f,rep=0):
-    raw = get_aoc_input(day=day).strip("\n")
+def present_answers(year,day,f,rep=0):
+    raw = get_aoc_input(day=day,year=year).strip("\n")
     for i,a in enumerate(f(raw)):
         print(f"Answer {i+1}: {a}")
     if rep:
         t0=time()
-        for _ in range(rep):
-            f(raw)
+        for _ in range(rep): list(f(raw))
         duration=time()-t0
         print(f"Running time: {1000*duration/rep:.2f} ms")
