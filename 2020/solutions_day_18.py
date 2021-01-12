@@ -6,6 +6,8 @@ from operator import add,mul
 ops={"*":mul,"+":add,"R":mul,"L":mul}
 ids={"*":1,"+":0}
 
+#Did it first then tried to clean up the code and broke it
+#Will fix it later
 def evaluate(data,prec):
     pass
     # ,op="+",term=0,factor=None):
@@ -43,7 +45,7 @@ def evaluate(data,prec):
 
 def answers(raw):
     data=[r.replace(" ","") for r in raw.split("\n")]
-    yield from (sum([evaluate(iter(d),prec) for d in data]) for prec in ("LR","+*"))
+    yield from (sum(evaluate(iter(d),prec) for d in data) for prec in ("LR","+*"))
 
 if __name__=="__main__":
     al.present_answers(2020,18,answers)
